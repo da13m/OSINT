@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epoch Timestamp Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9f5ff;
+            border: 1px solid #b3d4fc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Epoch Timestamp Converter</h1>
+    <p>Enter an Epoch timestamp (in seconds or milliseconds) below:</p>
+    <input type="text" id="epochInput" placeholder="Enter Epoch timestamp">
+    <button onclick="convertEpoch()">Convert</button>
+    <div id="output"></div>
+
+    <script>
+        function convertEpoch() {
+            const input = document.getElementById("epochInput").value.trim();
+            const output = document.getElementById("output");
+
+            // Validate input
+            if (!input) {
+                output.textContent = "Please enter a valid Epoch timestamp.";
+                return;
+            }
+
+            let epochTime = parseFloat(input);
+            if (isNaN(epochTime)) {
+                output.textContent = "Invalid input. Please enter a numeric Epoch timestamp.";
+                return;
+            }
+
+            // Check if timestamp is in seconds and convert to milliseconds if needed
+            if (epochTime < 10000000000) {
+                epochTime *= 1000;
+            }
+
+            // Convert to a human-readable date
+            const date = new Date(epochTime);
+            const humanReadableDate = date.toLocaleString();
+
+            // Display the result
+            output.innerHTML = `
+                <strong>Original Timestamp:</strong> ${input}<br>
+                <strong>Converted Date:</strong> ${humanReadableDate}
+            `;
+        }
+    </script>
+</body>
+</html>
